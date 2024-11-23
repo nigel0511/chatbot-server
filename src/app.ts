@@ -36,10 +36,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
 app.use("/api/auth", userRouter);
 
 app.use("/api/chat", chatRouter);
