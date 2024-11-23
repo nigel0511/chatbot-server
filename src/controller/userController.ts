@@ -62,7 +62,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
     domain: COOKIE_DOMAIN,
-    sameSite: "none",
+    // sameSite: "none",
     secure: ENV === "production",
     expires,
     signed: true,
@@ -107,7 +107,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
     domain: COOKIE_DOMAIN,
-    sameSite: "none",
+    // sameSite: "none",
     secure: ENV === "production",
     expires,
     signed: true,
@@ -167,6 +167,7 @@ export const logoutUser = async (
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
       domain: COOKIE_DOMAIN,
+      sameSite: "none",
       signed: true,
       path: "/",
       secure: ENV === "production", // In production, ensure secure cookies
