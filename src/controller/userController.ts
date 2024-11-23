@@ -46,13 +46,14 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   // create token and store cookie
-  // res.clearCookie(COOKIE_NAME, {
-  //   httpOnly: true,
-  //   domain: COOKIE_DOMAIN,
-  //   signed: true,
-  //   secure: ENV === "production", // In production, ensure secure cookies
-  //   path: "/",
-  // });
+  res.clearCookie(COOKIE_NAME, {
+    path: "/",
+    httpOnly: true, // Prevents client-side access to the cookie (security)
+    domain: COOKIE_DOMAIN,
+    sameSite: "none",
+    secure: ENV === "production",
+    signed: true,
+  });
 
   const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
@@ -62,7 +63,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
     domain: COOKIE_DOMAIN,
-    // sameSite: "none",
+    sameSite: "none",
     secure: ENV === "production",
     expires,
     signed: true,
@@ -92,13 +93,14 @@ export const loginUser = asyncHandler(async (req, res) => {
   // Check for user email
   const user = await User.findOne({ email });
 
-  // res.clearCookie(COOKIE_NAME, {
-  //   httpOnly: true,
-  //   domain: COOKIE_DOMAIN,
-  //   signed: true,
-  //   secure: ENV === "production", // In production, ensure secure cookies
-  //   path: "/",
-  // });
+  res.clearCookie(COOKIE_NAME, {
+    path: "/",
+    httpOnly: true, // Prevents client-side access to the cookie (security)
+    domain: COOKIE_DOMAIN,
+    sameSite: "none",
+    secure: ENV === "production",
+    signed: true,
+  });
 
   const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
@@ -107,7 +109,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
     domain: COOKIE_DOMAIN,
-    // sameSite: "none",
+    sameSite: "none",
     secure: ENV === "production",
     expires,
     signed: true,
