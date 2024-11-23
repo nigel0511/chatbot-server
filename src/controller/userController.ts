@@ -57,10 +57,11 @@ export const registerUser = asyncHandler(async (req, res) => {
   const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
   expires.setDate(expires.getDate() + 30);
+
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
-    // domain: COOKIE_DOMAIN,
+    domain: COOKIE_DOMAIN,
     sameSite: "none",
     secure: ENV === "production",
     expires,
@@ -105,7 +106,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
-    // domain: COOKIE_DOMAIN,
+    domain: COOKIE_DOMAIN,
     sameSite: "none",
     secure: ENV === "production",
     expires,
@@ -165,7 +166,7 @@ export const logoutUser = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      // domain: COOKIE_DOMAIN,
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
       secure: ENV === "production", // In production, ensure secure cookies
