@@ -7,6 +7,8 @@ import { COOKIE_NAME, EXPIRES_IN } from "../utils/contants";
 import { config } from "dotenv";
 config();
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
+const ENV = process.env.ENV;
+console.log(COOKIE_DOMAIN);
 
 // Generate JWT
 export const generateToken = (id: any, email: string) => {
@@ -47,7 +49,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
-    secure: false,
+    secure: ENV === "production",
     signed: true,
     path: "/",
   });
@@ -60,6 +62,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
     expires,
+    secure: ENV === "production",
     signed: true,
   });
 
@@ -90,7 +93,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
-    secure: false,
+    secure: ENV === "production",
     signed: true,
     path: "/",
   });
@@ -103,6 +106,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
     expires,
+    secure: ENV === "production",
     signed: true,
   });
 
@@ -160,7 +164,7 @@ export const logoutUser = async (
     res.clearCookie(COOKIE_NAME, {
       domain: COOKIE_DOMAIN,
       sameSite: "none",
-      secure: false,
+      secure: ENV === "production",
       signed: true,
       path: "/",
     });
