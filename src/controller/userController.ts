@@ -4,8 +4,7 @@ import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import { COOKIE_NAME, EXPIRES_IN } from "../utils/contants";
-import { config } from "dotenv/lib/main";
-
+import { config } from "dotenv";
 config();
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
