@@ -54,7 +54,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     path: "/",
   });
 
-  const token = generateToken(user._id.toString(), user.email);
+  const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
@@ -72,7 +72,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user.id, user.email),
+      token: token,
     });
   } else {
     res.status(400);
@@ -99,7 +99,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     path: "/",
   });
 
-  const token = generateToken(user._id.toString(), user.email);
+  const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
@@ -117,7 +117,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user.id, user.email),
+      token: token,
     });
   } else {
     res.status(400);
