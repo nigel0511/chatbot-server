@@ -43,7 +43,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   // create token and store cookie
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
-    domain: "localhost",
     signed: true,
     path: "/",
   });
@@ -53,7 +52,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
     path: "/",
-    domain: "localhost",
     expires,
     httpOnly: true,
     signed: true,
@@ -85,7 +83,6 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
-    domain: "localhost",
     signed: true,
     path: "/",
   });
@@ -95,7 +92,6 @@ export const loginUser = asyncHandler(async (req, res) => {
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
     path: "/",
-    domain: "localhost",
     expires,
     httpOnly: true,
     signed: true,
@@ -154,7 +150,6 @@ export const logoutUser = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
       signed: true,
       path: "/",
     });
