@@ -5,9 +5,11 @@ import { errorHandler } from "./middleware/errorMiddleware";
 import userRouter from "./route/userRoute";
 import cookieParser from "cookie-parser";
 import chatRouter from "./route/chatRoute";
+import connectDB from "./config/db";
 
 config();
 const app = express();
+connectDB();
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")

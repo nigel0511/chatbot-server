@@ -1,8 +1,7 @@
 import app from "../src/app";
-import connectDB from "../src/config/db";
 
 // Set the environment variable PORT to 3000 if it is not already set.
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -11,7 +10,6 @@ app.get("/", (req, res) => {
 // Start the application.
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
-  connectDB();
 });
 
 export default app;
