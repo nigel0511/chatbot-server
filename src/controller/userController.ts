@@ -4,6 +4,10 @@ import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import { COOKIE_NAME, EXPIRES_IN } from "../utils/contants";
+import { config } from "dotenv/lib/main";
+
+config();
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
 // Generate JWT
 export const generateToken = (id: any, email: string) => {
@@ -43,6 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   // create token and store cookie
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
+    domain: COOKIE_DOMAIN,
     signed: true,
     path: "/",
   });
@@ -52,6 +57,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
     path: "/",
+    domain: COOKIE_DOMAIN,
     expires,
     httpOnly: true,
     signed: true,
@@ -83,6 +89,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
+    domain: COOKIE_DOMAIN,
     signed: true,
     path: "/",
   });
@@ -92,6 +99,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   expires.setDate(expires.getDate() + 30);
   res.cookie(COOKIE_NAME, token, {
     path: "/",
+    domain: COOKIE_DOMAIN,
     expires,
     httpOnly: true,
     signed: true,
@@ -150,6 +158,7 @@ export const logoutUser = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
     });
