@@ -46,13 +46,13 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   // create token and store cookie
-  res.clearCookie(COOKIE_NAME, {
-    httpOnly: true,
-    domain: COOKIE_DOMAIN,
-    signed: true,
-    secure: ENV === "production", // In production, ensure secure cookies
-    path: "/",
-  });
+  // res.clearCookie(COOKIE_NAME, {
+  //   httpOnly: true,
+  //   domain: COOKIE_DOMAIN,
+  //   signed: true,
+  //   secure: ENV === "production", // In production, ensure secure cookies
+  //   path: "/",
+  // });
 
   const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
@@ -60,7 +60,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
+    // domain: COOKIE_DOMAIN,
     sameSite: "none",
     secure: ENV === "production",
     expires,
@@ -91,13 +91,13 @@ export const loginUser = asyncHandler(async (req, res) => {
   // Check for user email
   const user = await User.findOne({ email });
 
-  res.clearCookie(COOKIE_NAME, {
-    httpOnly: true,
-    domain: COOKIE_DOMAIN,
-    signed: true,
-    secure: ENV === "production", // In production, ensure secure cookies
-    path: "/",
-  });
+  // res.clearCookie(COOKIE_NAME, {
+  //   httpOnly: true,
+  //   domain: COOKIE_DOMAIN,
+  //   signed: true,
+  //   secure: ENV === "production", // In production, ensure secure cookies
+  //   path: "/",
+  // });
 
   const token = generateToken(user.id.toString(), user.email);
   const expires = new Date();
@@ -105,7 +105,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
+    // domain: COOKIE_DOMAIN,
     sameSite: "none",
     secure: ENV === "production",
     expires,
@@ -165,7 +165,7 @@ export const logoutUser = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: COOKIE_DOMAIN,
+      // domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
       secure: ENV === "production", // In production, ensure secure cookies
