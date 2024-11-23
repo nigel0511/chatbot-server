@@ -46,6 +46,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   // create token and store cookie
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
+    sameSite: "none",
     signed: true,
     path: "/",
   });
@@ -56,6 +57,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     domain: COOKIE_DOMAIN,
+    sameSite: "none",
     expires,
     signed: true,
   });
@@ -86,6 +88,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
+    sameSite: "none",
     signed: true,
     path: "/",
   });
@@ -96,6 +99,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.cookie(COOKIE_NAME, token, {
     path: "/",
     domain: COOKIE_DOMAIN,
+    sameSite: "none",
     expires,
     signed: true,
   });
@@ -153,6 +157,7 @@ export const logoutUser = async (
 
     res.clearCookie(COOKIE_NAME, {
       domain: COOKIE_DOMAIN,
+      sameSite: "none",
       signed: true,
       path: "/",
     });
