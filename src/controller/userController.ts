@@ -46,6 +46,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   // create token and store cookie
   res.clearCookie(COOKIE_NAME, {
+    httpOnly: true,
     domain: COOKIE_DOMAIN,
     signed: true,
     path: "/",
@@ -89,6 +90,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   res.clearCookie(COOKIE_NAME, {
+    httpOnly: true,
     domain: COOKIE_DOMAIN,
     signed: true,
     path: "/",
@@ -159,6 +161,7 @@ export const logoutUser = async (
     }
 
     res.clearCookie(COOKIE_NAME, {
+      httpOnly: true,
       domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
