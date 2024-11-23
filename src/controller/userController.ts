@@ -47,6 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
+    secure: false,
     signed: true,
     path: "/",
   });
@@ -89,6 +90,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.clearCookie(COOKIE_NAME, {
     domain: COOKIE_DOMAIN,
     sameSite: "none",
+    secure: false,
     signed: true,
     path: "/",
   });
@@ -158,6 +160,7 @@ export const logoutUser = async (
     res.clearCookie(COOKIE_NAME, {
       domain: COOKIE_DOMAIN,
       sameSite: "none",
+      secure: false,
       signed: true,
       path: "/",
     });
