@@ -21,16 +21,20 @@ export const verifyToken = async (
     return;
   }
   return new Promise<void>((resolve, reject) => {
-    return jwt.verify(token, process.env.JWT_SECRET, (err, success) => {
-      if (err) {
-        reject(err.message);
-        res.status(401).json({ message: "Token Expired" });
-        next();
-      } else {
-        resolve();
-        res.locals.jwtData = success;
-        next();
+    return jwt.verify(
+      token,
+      process.env.JWT_SECRET,
+      (err: any, success: any) => {
+        if (err) {
+          reject(err.message);
+          res.status(401).json({ message: "Token Expired" });
+          next();
+        } else {
+          resolve();
+          res.locals.jwtData = success;
+          next();
+        }
       }
-    });
+    );
   });
 };
