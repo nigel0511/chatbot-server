@@ -8,6 +8,7 @@ import { config } from "dotenv";
 config();
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const ENV = process.env.ENV;
+const SECURE = false;
 
 // Generate JWT
 export const generateToken = (id: any, email: string) => {
@@ -49,6 +50,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     domain: COOKIE_DOMAIN,
     signed: true,
+    secure: ENV === "production", // In production, ensure secure cookies
     path: "/",
   });
 
@@ -93,6 +95,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     domain: COOKIE_DOMAIN,
     signed: true,
+    secure: ENV === "production", // In production, ensure secure cookies
     path: "/",
   });
 
@@ -165,6 +168,7 @@ export const logoutUser = async (
       domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
+      secure: ENV === "production", // In production, ensure secure cookies
     });
 
     res.status(200).json({ message: "OK", name: user.name, email: user.email });
