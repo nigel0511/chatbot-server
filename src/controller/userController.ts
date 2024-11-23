@@ -159,7 +159,7 @@ export const logoutUser = async (
     }
 
     res.clearCookie(COOKIE_NAME, {
-      // domain: COOKIE_DOMAIN,
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
     });
