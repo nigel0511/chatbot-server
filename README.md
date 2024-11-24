@@ -40,8 +40,8 @@ This project provides an API for users to interact with a chatbot powered by Ope
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-repository/chat-api-service.git
-   cd chat-api-service
+   git clone https://github.com/nigel0511/chatbot-server.git
+   cd chatbot-server
    ```
 
 2. Install the dependencies:
