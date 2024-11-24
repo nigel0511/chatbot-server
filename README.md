@@ -384,13 +384,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ```
 
-### Summary of New Endpoints:
-- **`POST /api/auth/register`**: Registers a new user, creates a JWT token, and sets it as a cookie.
-- **`POST /api/auth/login`**: Logs in a user, verifies credentials, creates a JWT token, and sets it as a cookie.
-- **`GET /api/auth/verify`**: Verifies the authenticated user's token and retrieves user information.
-- **`POST /api/auth/logout`**: Logs out the user by clearing the JWT token
-
- cookie.
-
-These new endpoints are now documented under the **API Endpoints** section. You can copy and paste this README into your project’s `README.md` file.
 ```
