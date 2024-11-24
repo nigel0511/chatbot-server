@@ -5,10 +5,11 @@ import asyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import { COOKIE_NAME, EXPIRES_IN } from "../utils/contants";
 import { config } from "dotenv";
+import { getCookieOptions } from "../utils/cookie";
+
 config();
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const ENV = process.env.ENV;
-const SECURE = false;
 
 // Generate JWT
 export const generateToken = (id: any, email: string) => {
@@ -45,29 +46,16 @@ export const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
+  const clearCookieOptions = getCookieOptions(ENV, 30, "clear");
+
   // create token and store cookie
-  res.clearCookie(COOKIE_NAME, {
-    path: "/",
-    httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
-    sameSite: "none",
-    secure: ENV === "production",
-    signed: true,
-  });
+  res.clearCookie(COOKIE_NAME, clearCookieOptions);
 
   const token = generateToken(user.id.toString(), user.email);
-  const expires = new Date();
-  expires.setDate(expires.getDate() + 30);
 
-  res.cookie(COOKIE_NAME, token, {
-    path: "/",
-    httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
-    sameSite: "none",
-    secure: ENV === "production",
-    expires,
-    signed: true,
-  });
+  const setCookieOptions = getCookieOptions(ENV, 30, "set");
+
+  res.cookie(COOKIE_NAME, token, setCookieOptions);
 
   if (user) {
     res.status(201).json({
@@ -93,27 +81,16 @@ export const loginUser = asyncHandler(async (req, res) => {
   // Check for user email
   const user = await User.findOne({ email });
 
-  res.clearCookie(COOKIE_NAME, {
-    path: "/",
-    httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
-    sameSite: "none",
-    secure: ENV === "production",
-    signed: true,
-  });
+  const clearCookieOptions = getCookieOptions(ENV, 30, "clear");
+
+  // create token and store cookie
+  res.clearCookie(COOKIE_NAME, clearCookieOptions);
 
   const token = generateToken(user.id.toString(), user.email);
-  const expires = new Date();
-  expires.setDate(expires.getDate() + 30);
-  res.cookie(COOKIE_NAME, token, {
-    path: "/",
-    httpOnly: true, // Prevents client-side access to the cookie (security)
-    domain: COOKIE_DOMAIN,
-    sameSite: "none",
-    secure: ENV === "production",
-    expires,
-    signed: true,
-  });
+
+  const setCookieOptions = getCookieOptions(ENV, 30, "set");
+
+  res.cookie(COOKIE_NAME, token, setCookieOptions);
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
@@ -166,14 +143,10 @@ export const logoutUser = async (
       return;
     }
 
-    res.clearCookie(COOKIE_NAME, {
-      httpOnly: true,
-      domain: COOKIE_DOMAIN,
-      sameSite: "none",
-      signed: true,
-      path: "/",
-      secure: ENV === "production", // In production, ensure secure cookies
-    });
+    const clearCookieOptions = getCookieOptions(ENV, 30, "clear");
+
+    // create token and store cookie
+    res.clearCookie(COOKIE_NAME, clearCookieOptions);
 
     res.status(200).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
