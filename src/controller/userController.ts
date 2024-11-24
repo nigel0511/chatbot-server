@@ -8,7 +8,6 @@ import { config } from "dotenv";
 import { getCookieOptions } from "../utils/cookie";
 
 config();
-const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const ENV = process.env.ENV;
 
 // Generate JWT
@@ -47,14 +46,11 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   const clearCookieOptions = getCookieOptions(ENV, 30, "clear");
-
-  // create token and store cookie
   res.clearCookie(COOKIE_NAME, clearCookieOptions);
 
+  // create token and store cookie
   const token = generateToken(user.id.toString(), user.email);
-
   const setCookieOptions = getCookieOptions(ENV, 30, "set");
-
   res.cookie(COOKIE_NAME, token, setCookieOptions);
 
   if (user) {
@@ -82,14 +78,11 @@ export const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   const clearCookieOptions = getCookieOptions(ENV, 30, "clear");
-
-  // create token and store cookie
   res.clearCookie(COOKIE_NAME, clearCookieOptions);
 
+  // create token and store cookie
   const token = generateToken(user.id.toString(), user.email);
-
   const setCookieOptions = getCookieOptions(ENV, 30, "set");
-
   res.cookie(COOKIE_NAME, token, setCookieOptions);
 
   if (user && (await bcrypt.compare(password, user.password))) {
